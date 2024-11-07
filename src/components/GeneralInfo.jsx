@@ -4,7 +4,6 @@ function AddGeneralInfo({onChange, submit, edit, value}) {
 
   return (
     <form>
-      <h2>Fill in your general information</h2>
         <Input 
             id = "fullName"
             placeholder = "Name"
