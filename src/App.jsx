@@ -1,35 +1,65 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import './styles/App.css';
+// import GeneralInfo from './components/GeneralInfo.jsx';
+// import EducationalExp from './components/EducationalExp.jsx';
+// import WorkExp from './components/WorkExp.jsx';
+import Resume from './components/Resume.jsx';
+import AddGeneralInfo from './components/GeneralInfo.jsx';
+import './styles/index.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+    const defaultGeneralInfo = {
+        fullName: "Name",
+        email: "user@domain.com",
+        phoneNum: "XXX-XXX-XXX"
+    };
+
+    const [generalInfo, setGeneralInfo] = useState(defaultGeneralInfo);
+    const [resumeInfo, setResumeInfo] = useState(generalInfo);
+
+    const onChange = function textUpdateForSubmit (e) {
+        e.preventDefault();
+        const key = e.target.id;
+        setGeneralInfo({...generalInfo, [key]:e.target.value});
+    }
+
+
+    const submit = function onSubmit(e) {
+        e.preventDefault();
+        setResumeInfo(generalInfo);
+    }
+    const edit = function onEdit(e) {
+        e.preventDefault()
+        setGeneralInfo(resumeInfo);
+    }
+    
+    
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+    <div id = "page">
+      <div id = "form">
+        <AddGeneralInfo 
+            onChange={onChange}
+            submit={submit}
+            edit={edit}
+            value = {generalInfo}
+      />
+      <p>
+      {generalInfo.fullName}<br />
+      {resumeInfo.fullName}
+        
       </p>
-    </>
+      </div>
+      <div>
+        <Resume
+            fullName = {resumeInfo.fullName}
+            email={resumeInfo.email}
+            phoneNum={resumeInfo.phoneNum}
+        />
+      </div>
+    </div>
   )
 }
 
 export default App
+
