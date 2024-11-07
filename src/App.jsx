@@ -44,11 +44,6 @@ function App() {
             edit={edit}
             value = {generalInfo}
       />
-      <p>
-      {generalInfo.fullName}<br />
-      {resumeInfo.fullName}
-        
-      </p>
       </div>
       <div>
         <Resume
